@@ -3,7 +3,7 @@
 A retro-style animated cityscapes visualization project using OpenGL and GLUT, featuring a dynamic day/night cycle with traffic, moving clouds, and flying plane animations.
 
 ![OpenGL](https://img.shields.io/badge/gl-2.1-blue.svg)
-![Platform]&#8203;[Linux][Windows]
+![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Windows-blue.svg)
 
 ---
 
@@ -14,6 +14,12 @@ A retro-style animated cityscapes visualization project using OpenGL and GLUT, f
 - **Animated Elements** - Clouds, smoke, and flying plane effects
 - **City Scenery** - Buildings, trees, roads, sidewalks, and urban infrastructure
 - **Real-time Controls** - Adjust traffic speed using keyboard shortcuts
+
+![Day Mode Scene](Pictures/Scene_day.png)
+*Day mode with blue sky, clouds, sun, and moving traffic*
+
+![Night Mode Scene](Pictures/Scene_night.png)
+*Night mode with stars, moon, and flying plane animation*
 
 ---
 
