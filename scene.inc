@@ -1,6 +1,7 @@
 #include "scene_back.inc"
 #include "scene_trees.inc"
 #include "scene_buildings.inc"
+#include "scene_buildings_n.inc"
 #include "scene_cars.inc"
 
 float carSpeed = 0;
