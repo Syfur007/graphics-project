@@ -51,20 +51,14 @@ void keypressed(int key, int x, int y)
     if (key == GLUT_KEY_UP) // Increase speed
     {
         carSpeed += 2.0f;
+        busSpeed += 2.0f;
     }
     else if (key == GLUT_KEY_DOWN) // Decrease speed
     {
         carSpeed -= 2.0f;
         if (carSpeed < 0)
             carSpeed = 0;
-    }
-
-    if (key == GLUT_KEY_UP) // Increase speed
-    {
-        busSpeed += 2.0f;
-    }
-    else if (key == GLUT_KEY_DOWN) // Decrease speed
-    {
+        
         busSpeed -= 2.0f;
         if (busSpeed < 0)
             busSpeed = 0;
