@@ -1,7 +1,6 @@
 #include "scene_back.h"
 #include "scene_trees.h"
 #include "scene_buildings.h"
-#include "scene_buildings_n.h"
 #include "scene_far_buildings.h"
 #include "scene_cars.h"
 
