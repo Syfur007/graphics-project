@@ -468,15 +468,16 @@ void Pharmacy(bool isNight = false) {
     glVertex3f(703, 198, building_offset);
     glEnd();
 
+    // Roof Side
     if (isNight)
         glColor3f(0.1, 0.25, 0.3);
     else
         glColor3f(0.281,0.488,0.570);
     glBegin(GL_QUADS);
-    glVertex3f(708, 270, building_offset);
-    glVertex3f(710, 310, building_offset);
-    glVertex3f(815, 310, building_offset);
-    glVertex3f(830, 270, building_offset);
+    glVertex3f(708, 270, building_offset+0.02f);
+    glVertex3f(710, 310, building_offset+0.02f);
+    glVertex3f(815, 310, building_offset+0.02f);
+    glVertex3f(830, 270, building_offset+0.02f);
     glEnd();
 
     if (isNight)
@@ -484,21 +485,35 @@ void Pharmacy(bool isNight = false) {
     else
         glColor3f(0.281,0.488,0.570);
     glBegin(GL_TRIANGLES);
-    glVertex3f(708, 270, building_offset+0.02f);
-    glVertex3f(710, 310, building_offset+0.02f);
-    glVertex3f(695, 280, building_offset+0.02f);
+    glVertex3f(708, 270, building_offset+0.01f);
+    glVertex3f(710, 310, building_offset+0.01f);
+    glVertex3f(695, 280, building_offset+0.01f);
     glEnd();
 
-    //Door
+    // Entrance
+    
     if (isNight)
         glColor3f(0.1, 0.25, 0.3);
     else
         glColor3f(0.281,0.488,0.570);
     glBegin(GL_QUADS);
-    glVertex3f(738, 190, building_offset+0.1f);
-    glVertex3f(738, 250, building_offset+0.1f);
-    glVertex3f(800, 250, building_offset+0.1f);
-    glVertex3f(800, 190, building_offset+0.1f);
+    glVertex3f(738, 190, building_offset+0.2f);
+    glVertex3f(738, 250, building_offset+0.2f);
+    glVertex3f(800, 250, building_offset+0.2f);
+    glVertex3f(800, 190, building_offset+0.2f);
+    glEnd();
+
+    // Doors
+
+    if (isNight)
+        glColor3f(0.8, 0.7, 0.3);
+    else
+        glColor3f(0.656,0.796,0.839);
+    glBegin(GL_QUADS);
+    glVertex3f(767, 195, building_offset+0.3f);
+    glVertex3f(767, 250, building_offset+0.3f);
+    glVertex3f(800, 250, building_offset+0.3f);
+    glVertex3f(800, 190, building_offset+0.3f);
     glEnd();
 
     if (isNight)
@@ -506,21 +521,10 @@ void Pharmacy(bool isNight = false) {
     else
         glColor3f(0.656,0.796,0.839);
     glBegin(GL_QUADS);
-    glVertex3f(767, 195, building_offset);
-    glVertex3f(767, 250, building_offset);
-    glVertex3f(800, 250, building_offset);
-    glVertex3f(800, 190, building_offset);
-    glEnd();
-
-    if (isNight)
-        glColor3f(0.8, 0.7, 0.3);
-    else
-        glColor3f(0.656,0.796,0.839);
-    glBegin(GL_QUADS);
-    glVertex3f(738, 190, building_offset);
-    glVertex3f(738, 250, building_offset);
-    glVertex3f(765, 250, building_offset);
-    glVertex3f(765, 200, building_offset);
+    glVertex3f(738, 190, building_offset+0.3f);
+    glVertex3f(738, 250, building_offset+0.3f);
+    glVertex3f(765, 250, building_offset+0.3f);
+    glVertex3f(765, 200, building_offset+0.3f);
     glEnd();
 
 }
