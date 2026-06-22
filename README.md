@@ -54,14 +54,14 @@ winget install GLUT
 
 ### Using g++ (Simple)
 ```bash
-g++ -o ModernSubCity main.cpp scene*.inc -lGL -lglut -lm
+g++ -o ModernSubCity main.cpp -lGL -lGLU -lglut
 ```
 
 ### With Compiler Flags
 ```bash
 g++ -O2 -std=c++11 -Wall -o ModernSubCity \
-    main.cpp scene*.inc \
-    -lGL -lglut -lm
+    main.cpp scene*.h \
+    -lGL -lGLU -lglut
 ```
 
 ---
@@ -102,12 +102,12 @@ g++ -O2 -std=c++11 -Wall -o ModernSubCity \
 
 ```
 main.cpp           # Entry point, GLUT initialization
-scene.inc          # Scene composition & main loop
-scene_back.inc     # Sky, ground, celestial bodies
-scene_buildings.inc# Urban structures (large)
-scene_trees.inc    # Vegetation elements
-scene_cars.inc     # Traffic animations
-scene_utils.inc    # Helper functions (drawCircle, etc.)
+scene.h          # Scene composition & main loop
+scene_back.h     # Sky, ground, celestial bodies
+scene_buildings.h# Urban structures (large)
+scene_trees.h    # Vegetation elements
+scene_cars.h     # Traffic animations
+scene_utils.h    # Helper functions (drawCircle, etc.)
 scene_utils_inc    # Utility routines
 scene_buildings_inc# Building definitions (auxiliary)
 ```

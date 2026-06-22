@@ -1,8 +1,8 @@
-#include "scene_back.inc"
-#include "scene_trees.inc"
-#include "scene_buildings.inc"
-#include "scene_buildings_n.inc"
-#include "scene_cars.inc"
+#include "scene_back.h"
+#include "scene_trees.h"
+#include "scene_buildings.h"
+#include "scene_buildings_n.h"
+#include "scene_cars.h"
 
 float carSpeed = 0;
 float busSpeed = 0;

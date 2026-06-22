@@ -1,4 +1,4 @@
-#include "scene_utils.inc"
+#include "scene_utils.h"
 
 float smokeX = 0;      // Starting position of the car
 float cloudX = 0;      // Starting position of the car

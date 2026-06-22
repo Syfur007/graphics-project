@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <cmath>
 
-#include "scene.inc"
+#include "scene.h"
 
 void myInit(void)
 {
