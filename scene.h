@@ -11,9 +11,15 @@ float cloudSpeed = 0.0f;
 float planeSpeed = 3.0f;
 
 
+// Declared in main.cpp — applies the orbital perspective camera
+extern void applyCamera();
+extern float rotX, rotY, camDist;
+
 void Day_Scn()
 {
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    applyCamera();
 
     Day_Sky();
     sunA();
@@ -31,7 +37,9 @@ void Day_Scn()
 
 void Night_Scn()
 {
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    applyCamera();
 
     Night_Sky();
     Moon();
@@ -102,28 +110,28 @@ void update1(int value)
 
 void keyboard1(unsigned char key, int x, int y)
 {
-
     switch (key)
     {
-    case  'd':
-        glutDisplayFunc(Day_Scn);
-        glutKeyboardFunc(keyboard1);
-        glutPostRedisplay();
-        break;
+    case 'd':
     case 'D':
         glutDisplayFunc(Day_Scn);
-        glutKeyboardFunc(keyboard1);
         glutPostRedisplay();
         break;
     case 'n':
+    case 'N':
         glutDisplayFunc(Night_Scn);
-        glutKeyboardFunc(keyboard1);
         glutPostRedisplay();
         break;
-    case  'N':
-        glutDisplayFunc(Night_Scn);
-        glutKeyboardFunc(keyboard1);
+    case 'r':
+    case 'R':
+        // Reset camera to default orbital position
+        rotX    = 20.0f;
+        rotY    = 0.0f;
+        camDist = 900.0f;
         glutPostRedisplay();
+        break;
+    case 27: // ESC
+        exit(0);
         break;
     }
 }

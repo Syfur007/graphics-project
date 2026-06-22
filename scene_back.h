@@ -21,10 +21,10 @@ void Day_Sky()
 {
     glColor3f(0.53f, 0.81f, 0.92f); // Light blue sky
     glBegin(GL_QUADS);
-    glVertex2f(0, 0);
-    glVertex2f(1200, 0);
-    glVertex2f(1200, 600);
-    glVertex2f(0, 600);
+    glVertex3f(0, 0, -10.0f);
+    glVertex3f(1200, 0, -10.0f);
+    glVertex3f(1200, 600, -10.0f);
+    glVertex3f(0, 600, -10.0f);
     glEnd();
 }
 
@@ -32,10 +32,10 @@ void Night_Sky()
 {
     glColor3f(0.0f, 0.0f, 0.0f); // Light blue sky
     glBegin(GL_QUADS);
-    glVertex2f(0, 0);
-    glVertex2f(1200, 0);
-    glVertex2f(1200, 600);
-    glVertex2f(0, 600);
+    glVertex3f(0, 0, -10.0f);
+    glVertex3f(1200, 0, -10.0f);
+    glVertex3f(1200, 600, -10.0f);
+    glVertex3f(0, 600, -10.0f);
     glEnd();
 
     glPointSize(3.0f); // Set the size of the points to create visible stars
@@ -164,13 +164,13 @@ void Clouds()
 void sunA()
 {
     glColor3f(.882, .937, .161); //SUN
-    drawCircle(1000.0f, 530.0f, 40.0f);
+    drawCircle(1000.0f, 530.0f, 40.0f, 5.0f);
 }
 
 void Moon()
 {
     glColor3f(.960, .941, .832); //moon
-    drawCircle(1000.0f, 530.0f, 40.0f);
+    drawCircle(1000.0f, 530.0f, 40.0f, 5.0f);
 }
 
 void Ground_D()
