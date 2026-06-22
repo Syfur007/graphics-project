@@ -13,13 +13,13 @@
 // ---------------------------------------------------------------------------
 // Camera / rotation state
 // ---------------------------------------------------------------------------
-float rotX    = 20.0f;   // vertical tilt (degrees above horizon)
+float rotX    = 0.0f;   // vertical tilt (degrees above horizon)
 float rotY    = 0.0f;    // horizontal orbit (degrees)
-float camDist = 900.0f;  // distance from scene centre
+float camDist = 700.0f;  // distance from scene centre
 
 // Scene centre (middle of the 1200×600 canvas, slightly above ground)
 const float CX = 600.0f;
-const float CY = 250.0f;
+const float CY = 300.0f;
 const float CZ = 0.0f;
 
 // Mouse drag state
