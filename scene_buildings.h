@@ -4,7 +4,6 @@ float building_middle_offset = 10.0f;
 float building_window_offset = building_offset + .1f;
 float building_middle_window_offset = building_middle_offset + .1f;
 
-
 float building_shadow_offset = building_offset - 1.0f;
 
 
@@ -80,10 +79,10 @@ void Hospital() {
 
     glColor3f(1, 1, 1);//Entrance
     glBegin(GL_LINES);
-    glVertex3f(110, 212, building_window_offset + 0.1f);
-    glVertex3f(150, 212, building_window_offset + 0.1f);
-    glVertex3f(130, 212, building_window_offset + 0.1f);
-    glVertex3f(130, 180, building_window_offset + 0.1f);
+    glVertex3f(110, 212, building_window_offset + 0.2f);
+    glVertex3f(150, 212, building_window_offset + 0.2f);
+    glVertex3f(130, 212, building_window_offset + 0.2f);
+    glVertex3f(130, 180, building_window_offset + 0.2f);
     glEnd();
 
     //Hospital Windows
@@ -297,380 +296,199 @@ void Medical_University() {
     glEnd();
 }
 
-void Buildings()
-{
-    Hospital();
-
-    Medical_University();
-    
-
-    //Restaurant
+void Restaurant() {
+        //Restaurant
 
     glColor3f(0.195,0.596,0.898);
     glBegin(GL_QUADS);
-    glVertex2i(570, 190);
-    glVertex2i(570, 280);
-    glVertex2i(680, 280);
-    glVertex2i(680, 190);
+    glVertex3f(570, 190, building_offset);
+    glVertex3f(570, 280, building_offset);
+    glVertex3f(680, 280, building_offset);
+    glVertex3f(680, 190, building_offset);
     glEnd();
 
     glColor3f(0.085,0.411,0.710);
     glBegin(GL_QUADS);
-    glVertex2i(570, 190);
-    glVertex2i(570, 280);
-    glVertex2i(560, 285);
-    glVertex2i(560, 198);
+    glVertex3f(570, 190, building_offset);
+    glVertex3f(570, 280, building_offset);
+    glVertex3f(560, 285, building_offset);
+    glVertex3f(560, 198, building_offset);
     glEnd();
 
+    // Roof Front
     glColor3f(0.191,0.371,0.660);
     glBegin(GL_TRIANGLES);
-    glVertex2i(565, 280);
-    glVertex2i(690, 280);
-    glVertex2i(615, 320);
+    glVertex3f(565, 280, building_offset+0.02f);
+    glVertex3f(690, 280, building_offset+0.02f);
+    glVertex3f(615, 320, building_offset+0.02f);
     glEnd();
-
-    glColor3f(0.191,0.371,0.660);
+    
+    // Roof Back
+    glColor3f(0.151,0.321,0.610);
     glBegin(GL_TRIANGLES);
-    glVertex2i(565, 280);
-    glVertex2i(615, 320);
-    glVertex2i(550, 290);
+    glVertex3f(565, 280, building_offset+0.1f);
+    glVertex3f(615, 320, building_offset+0.1f);
+    glVertex3f(550, 290, building_offset+0.1f);
     glEnd();
 
-    //chimney
+    // Chimney
     glColor3f(0.191,0.371,0.660);
     glBegin(GL_QUADS);
-    glVertex2i(635, 300);
-    glVertex2i(645, 300);
-    glVertex2i(645, 345);
-    glVertex2i(635, 340);
+    glVertex3f(635, 300, building_offset);
+    glVertex3f(645, 300, building_offset);
+    glVertex3f(645, 345, building_offset);
+    glVertex3f(635, 340, building_offset);
     glEnd();
 
     //Door
     glColor3f(0.656,0.796,0.839);
     glBegin(GL_QUADS);
-    glVertex2i(590, 190);
-    glVertex2i(590, 250);
-    glVertex2i(660, 250);
-    glVertex2i(660, 190);
+    glVertex3f(590, 190, building_offset+0.1f);
+    glVertex3f(590, 250, building_offset+0.1f);
+    glVertex3f(660, 250, building_offset+0.1f);
+    glVertex3f(660, 190, building_offset+0.1f);
     glEnd();
 
     glColor3f(0,0,0);
     glBegin(GL_LINES);
-    glVertex2i(625, 190);
-    glVertex2i(625, 250);
-
+    glVertex3f(625, 190, building_offset+0.3f);
+    glVertex3f(625, 250, building_offset+0.3f);
     glEnd();
+}
 
-    //Pharmacy
+void Pharmacy() {
     glColor3f(0.295,0.796,0.773);
     glBegin(GL_QUADS);
-    glVertex2i(713, 190);
-    glVertex2i(713, 280);
-    glVertex2i(823, 280);
-    glVertex2i(823, 190);
+    glVertex3f(713, 190, building_offset);
+    glVertex3f(713, 280, building_offset);
+    glVertex3f(823, 280, building_offset);
+    glVertex3f(823, 190, building_offset);
     glEnd();
 
     glColor3f(0.187,0.664,0.640);
     glBegin(GL_QUADS);
-    glVertex2i(713, 190);
-    glVertex2i(713, 280);
-    glVertex2i(703, 285);
-    glVertex2i(703, 198);
+    glVertex3f(713, 190, building_offset);
+    glVertex3f(713, 280, building_offset);
+    glVertex3f(703, 285, building_offset);
+    glVertex3f(703, 198, building_offset);
     glEnd();
 
     glColor3f(0.281,0.488,0.570);
     glBegin(GL_QUADS);
-    glVertex2i(708, 270);
-    glVertex2i(710, 310);
-    glVertex2i(815, 310);
-    glVertex2i(830, 270);
+    glVertex3f(708, 270, building_offset);
+    glVertex3f(710, 310, building_offset);
+    glVertex3f(815, 310, building_offset);
+    glVertex3f(830, 270, building_offset);
     glEnd();
 
     glColor3f(0.281,0.488,0.570);
     glBegin(GL_TRIANGLES);
-    glVertex2i(708, 270);
-    glVertex2i(710, 310);
-    glVertex2i(695, 280);
+    glVertex3f(708, 270, building_offset+0.02f);
+    glVertex3f(710, 310, building_offset+0.02f);
+    glVertex3f(695, 280, building_offset+0.02f);
     glEnd();
 
     //Door
     glColor3f(0.281,0.488,0.570);
     glBegin(GL_QUADS);
-    glVertex2i(738, 190);
-    glVertex2i(738, 250);
-    glVertex2i(800, 250);
-    glVertex2i(800, 190);
+    glVertex3f(738, 190, building_offset+0.1f);
+    glVertex3f(738, 250, building_offset+0.1f);
+    glVertex3f(800, 250, building_offset+0.1f);
+    glVertex3f(800, 190, building_offset+0.1f);
     glEnd();
 
     glColor3f(0.656,0.796,0.839);
     glBegin(GL_QUADS);
-    glVertex2i(767, 195);
-    glVertex2i(767, 250);
-    glVertex2i(800, 250);
-    glVertex2i(800, 190);
+    glVertex3f(767, 195, building_offset);
+    glVertex3f(767, 250, building_offset);
+    glVertex3f(800, 250, building_offset);
+    glVertex3f(800, 190, building_offset);
     glEnd();
 
     glColor3f(0.656,0.796,0.839);
     glBegin(GL_QUADS);
-    glVertex2i(738, 190);
-    glVertex2i(738, 250);
-    glVertex2i(765, 250);
-    glVertex2i(765, 200);
+    glVertex3f(738, 190, building_offset);
+    glVertex3f(738, 250, building_offset);
+    glVertex3f(765, 250, building_offset);
+    glVertex3f(765, 200, building_offset);
     glEnd();
 
-    //MegaMall
+}
+
+void MegaMall() {
     glColor3f(0.773,0.800,0.769);
     glBegin(GL_QUADS);
-    glVertex2i(860, 210);
-    glVertex2i(860, 400);
-    glVertex2i(1010, 440);
-    glVertex2i(1010, 190);
+    glVertex3f(860, 210, building_offset);
+    glVertex3f(860, 400, building_offset);
+    glVertex3f(1010, 440, building_offset);
+    glVertex3f(1010, 190, building_offset);
     glEnd();
 
     glColor3f(0.801,0.802,0.807);
     glBegin(GL_QUADS);
-    glVertex2i(1010, 190);
-    glVertex2i(1010, 440);
-    glVertex2i(1160, 400);
-    glVertex2i(1160, 210);
+    glVertex3f(1010, 190, building_offset);
+    glVertex3f(1010, 440, building_offset);
+    glVertex3f(1160, 400, building_offset);
+    glVertex3f(1160, 210, building_offset);
     glEnd();
 
     //Entrances
-
     glColor3f(0.492,0.511,0.617);
     glBegin(GL_QUADS);
-    glVertex2i(910, 203);
-    glVertex2i(910, 240);
-    glVertex2i(960, 236);
-    glVertex2i(960, 196);
+    glVertex3f(910, 203, building_offset+0.1f);
+    glVertex3f(910, 240, building_offset+0.1f);
+    glVertex3f(960, 236, building_offset+0.1f);
+    glVertex3f(960, 196, building_offset+0.1f);
     glEnd();
 
     glColor3f(0.492,0.511,0.617);
     glBegin(GL_QUADS);
-    glVertex2i(1060, 196);
-    glVertex2i(1060, 236);
-    glVertex2i(1110, 241);
-    glVertex2i(1110, 203);
+    glVertex3f(1060, 196, building_offset+0.1f);
+    glVertex3f(1060, 236, building_offset+0.1f);
+    glVertex3f(1110, 241, building_offset+0.1f);
+    glVertex3f(1110, 203, building_offset+0.1f);
     glEnd();
 
     //windows
     glColor3f(0.203,0.203,0.515);
     glBegin(GL_QUADS);
-    glVertex2i(865, 250);
-    glVertex2i(865, 395);
-    glVertex2i(1005, 430);
-    glVertex2i(1005, 240);
+    glVertex3f(865, 250, building_offset+0.1f);
+    glVertex3f(865, 395, building_offset+0.1f);
+    glVertex3f(1005, 430, building_offset+0.1f);
+    glVertex3f(1005, 240, building_offset+0.1f);
     glEnd();
 
     glColor3f(0.382,0.382,0.757);
     glBegin(GL_QUADS);
-    glVertex2i(1015, 240);
-    glVertex2i(1015, 430);
-    glVertex2i(1155, 395);
-    glVertex2i(1155, 250);
+    glVertex3f(1015, 240, building_offset+0.1f);
+    glVertex3f(1015, 430, building_offset+0.1f);
+    glVertex3f(1155, 395, building_offset+0.1f);
+    glVertex3f(1155, 250, building_offset+0.1f);
     glEnd();
 
     //window Lines
     glColor3f(1,1,1);
     glBegin(GL_LINES);
-    glVertex2i(935, 244);
-    glVertex2i(935, 412);
-    glVertex2i(865, 322);
-    glVertex2i(1005, 335);
+    glVertex3f(935, 244, building_offset+0.12f);
+    glVertex3f(935, 412, building_offset+0.12f);
+    glVertex3f(865, 322, building_offset+0.12f);
+    glVertex3f(1005, 335, building_offset+0.12f);
     glEnd();
 
     glColor3f(1,1,1);
     glBegin(GL_LINES);
-    glVertex2i(1085, 244);
-    glVertex2i(1085, 412);
-    glVertex2i(1155, 322);
-    glVertex2i(1015, 335);
+    glVertex3f(1085, 244, building_offset+0.12f);
+    glVertex3f(1085, 412, building_offset+0.12f);
+    glVertex3f(1155, 322, building_offset+0.12f);
+    glVertex3f(1015, 335, building_offset+0.12f);
     glEnd();
 }
 
-void Building_Shadows()
+void Buildings()
 {
-    //bg
-    glColor3f(.392, .412, .519);
-    glBegin(GL_QUADS);
-    glVertex3f(590-10, 200, 1.0f);
-    glVertex3f(660-10, 200, 1.0f);
-    glVertex3f(660-10, 440-10, 1.0f);
-    glVertex3f(590-10, 440-10, 1.0f);
-    glEnd();
-    //fw
-    glColor3f(.808, .816, .855);
-    glBegin(GL_QUADS);
-    glVertex3f(590, 200, 1.0f);
-    glVertex3f(660, 200, 1.0f);
-    glVertex3f(660, 440, 1.0f);
-    glVertex3f(590, 440, 1.0f);
-    glEnd();
-
-    //bg
-    glColor3f(.392, .412, .519);
-    glBegin(GL_QUADS);
-    glVertex3f(690-10, 200, 1.0f);
-    glVertex3f(760-10, 200, 1.0f);
-    glVertex3f(760-10, 420-10, 1.0f);
-    glVertex3f(690-10, 440-10, 1.0f);
-    glEnd();
-
-    //fw
-    glColor3f(.808, .816, .855);
-    glBegin(GL_QUADS);
-    glVertex3f(690, 200, 1.0f);
-    glVertex3f(760, 200, 1.0f);
-    glVertex3f(760, 420, 1.0f);
-    glVertex3f(690, 440, 1.0f);
-    glEnd();
-
-    //bg
-    glColor3f(.392, .412, .519);
-    glBegin(GL_QUADS);
-    glVertex3f(840-10, 250, 1.0f);
-    glVertex3f(910-10, 250, 1.0f);
-    glVertex3f(910-10, 470-10, 1.0f);
-    glVertex3f(840-10, 470-10, 1.0f);
-    glEnd();
-
-
-    //fw
-    glColor3f(.808, .816, .855);
-    glBegin(GL_QUADS);
-    glVertex3f(840, 250, 1.0f);
-    glVertex3f(910, 250, 1.0f);
-    glVertex3f(910, 470, 1.0f);
-    glVertex3f(840, 470, 1.0f);
-    glEnd();
-
-    //bg
-    glColor3f(.392, .412, .519);
-    glBegin(GL_QUADS);
-    glVertex3f(240-10, 250, 1.0f);
-    glVertex3f(310-10, 250, 1.0f);
-    glVertex3f(310-10, 470-10, 1.0f);
-    glVertex3f(240-10, 460-10, 1.0f);
-    glEnd();
-
-    //fw
-    glColor3f(.808, .816, .855);
-    glBegin(GL_QUADS);
-    glVertex3f(240, 250, 1.0f);
-    glVertex3f(310, 250, 1.0f);
-    glVertex3f(310, 470, 1.0f);
-    glVertex3f(240, 460, 1.0f);
-    glEnd();
-
-    //bg
-    glColor3f(.392, .412, .519);
-    glBegin(GL_QUADS);
-    glVertex3f(340-10, 250, 1.0f);
-    glVertex3f(410-10, 250, 1.0f);
-    glVertex3f(410-10, 470-10, 1.0f);
-    glVertex3f(340-10, 470-10, 1.0f);
-    glEnd();
-
-    //fw
-    glColor3f(.808, .816, .855);
-    glBegin(GL_QUADS);
-    glVertex3f(340, 250, 1.0f);
-    glVertex3f(410, 250, 1.0f);
-    glVertex3f(410, 470, 1.0f);
-    glVertex3f(340, 470, 1.0f);
-    glEnd();
-}
-
-void Building_Shadows_N()
-{
-    // Background (Darker Shade)
-    glColor3f(.2, .2, .3);  // Darker shade of blue
-    glBegin(GL_QUADS);
-    glVertex3f(590-10, 200, 1.0f);
-    glVertex3f(660-10, 200, 1.0f);
-    glVertex3f(660-10, 440-10, 1.0f);
-    glVertex3f(590-10, 440-10, 1.0f);
-    glEnd();
-
-// Foreground (Darker Shade)
-    glColor3f(.4, .4, .4);  // Darker grayish color
-    glBegin(GL_QUADS);
-    glVertex3f(590, 200, 1.0f);
-    glVertex3f(660, 200, 1.0f);
-    glVertex3f(660, 440, 1.0f);
-    glVertex3f(590, 440, 1.0f);
-    glEnd();
-
-// Background (Darker Shade)
-    glColor3f(.2, .2, .3);  // Darker shade of blue
-    glBegin(GL_QUADS);
-    glVertex3f(690-10, 200, 1.0f);
-    glVertex3f(760-10, 200, 1.0f);
-    glVertex3f(760-10, 420-10, 1.0f);
-    glVertex3f(690-10, 440-10, 1.0f);
-    glEnd();
-
-// Foreground (Darker Shade)
-    glColor3f(.4, .4, .4);  // Darker grayish color
-    glBegin(GL_QUADS);
-    glVertex3f(690, 200, 1.0f);
-    glVertex3f(760, 200, 1.0f);
-    glVertex3f(760, 420, 1.0f);
-    glVertex3f(690, 440, 1.0f);
-    glEnd();
-
-// Background (Darker Shade)
-    glColor3f(.2, .2, .3);  // Darker shade of blue
-    glBegin(GL_QUADS);
-    glVertex3f(840-10, 250, 1.0f);
-    glVertex3f(910-10, 250, 1.0f);
-    glVertex3f(910-10, 470-10, 1.0f);
-    glVertex3f(840-10, 470-10, 1.0f);
-    glEnd();
-
-// Foreground (Darker Shade)
-    glColor3f(.4, .4, .4);  // Darker grayish color
-    glBegin(GL_QUADS);
-    glVertex3f(840, 250, 1.0f);
-    glVertex3f(910, 250, 1.0f);
-    glVertex3f(910, 470, 1.0f);
-    glVertex3f(840, 470, 1.0f);
-    glEnd();
-
-// Background (Darker Shade)
-    glColor3f(.2, .2, .3);  // Darker shade of blue
-    glBegin(GL_QUADS);
-    glVertex3f(240-10, 250, 1.0f);
-    glVertex3f(310-10, 250, 1.0f);
-    glVertex3f(310-10, 470-10, 1.0f);
-    glVertex3f(240-10, 460-10, 1.0f);
-    glEnd();
-
-// Foreground (Darker Shade)
-    glColor3f(.4, .4, .4);  // Darker grayish color
-    glBegin(GL_QUADS);
-    glVertex3f(240, 250, 1.0f);
-    glVertex3f(310, 250, 1.0f);
-    glVertex3f(310, 470, 1.0f);
-    glVertex3f(240, 460, 1.0f);
-    glEnd();
-
-// Background (Darker Shade)
-    glColor3f(.2, .2, .3);  // Darker shade of blue
-    glBegin(GL_QUADS);
-    glVertex3f(340-10, 250, 1.0f);
-    glVertex3f(410-10, 250, 1.0f);
-    glVertex3f(410-10, 470-10, 1.0f);
-    glVertex3f(340-10, 470-10, 1.0f);
-    glEnd();
-
-// Foreground (Darker Shade)
-    glColor3f(.4, .4, .4);  // Darker grayish color
-    glBegin(GL_QUADS);
-    glVertex3f(340, 250, 1.0f);
-    glVertex3f(410, 250, 1.0f);
-    glVertex3f(410, 470, 1.0f);
-    glVertex3f(340, 470, 1.0f);
-    glEnd();
-
+    Hospital();
+    Medical_University();
+    Restaurant();
+    Pharmacy();
+    MegaMall();
 }

@@ -2,6 +2,7 @@
 #include "scene_trees.h"
 #include "scene_buildings.h"
 #include "scene_buildings_n.h"
+#include "scene_far_buildings.h"
 #include "scene_cars.h"
 
 float carSpeed = 0;
@@ -24,7 +25,7 @@ void Day_Scn()
     Day_Sky();
     sunA();
     Clouds();
-    Building_Shadows();
+    // Building_Shadows();
     Ground_D();
     smoke();
     Buildings();
