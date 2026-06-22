@@ -1,3 +1,6 @@
+float building_fw_offset = 2.0f; // Offset for the front wall of buildings
+float building_bg_offset = 1.0f; // Offset for the back wall of buildings
+
 void Building_Shadows(bool isNight = false)
 {
     // Background
@@ -6,10 +9,10 @@ void Building_Shadows(bool isNight = false)
     else
         glColor3f(0.392, .412, .519);
     glBegin(GL_QUADS);
-    glVertex3f(590-10, 200, 2.0f);
-    glVertex3f(660-10, 200, 2.0f);
-    glVertex3f(660-10, 440-10, 2.0f);
-    glVertex3f(590-10, 440-10, 2.0f);
+    glVertex3f(590-10, 200, building_bg_offset);
+    glVertex3f(660-10, 200, building_bg_offset);
+    glVertex3f(660-10, 440-10, building_bg_offset);
+    glVertex3f(590-10, 440-10, building_bg_offset);
     glEnd();
 
     //fw
@@ -18,10 +21,10 @@ void Building_Shadows(bool isNight = false)
     else
         glColor3f(.808, .816, .855);
     glBegin(GL_QUADS);
-    glVertex3f(590, 200, 1.0f);
-    glVertex3f(660, 200, 1.0f);
-    glVertex3f(660, 440, 1.0f);
-    glVertex3f(590, 440, 1.0f);
+    glVertex3f(590, 200, building_fw_offset);
+    glVertex3f(660, 200, building_fw_offset);
+    glVertex3f(660, 440, building_fw_offset);
+    glVertex3f(590, 440, building_fw_offset);
     glEnd();
 
     //bg
@@ -30,10 +33,10 @@ void Building_Shadows(bool isNight = false)
     else
         glColor3f(0.392, .412, .519);
     glBegin(GL_QUADS);
-    glVertex3f(690-10, 200, 2.0f);
-    glVertex3f(760-10, 200, 2.0f);
-    glVertex3f(760-10, 420-10, 2.0f);
-    glVertex3f(690-10, 440-10, 2.0f);
+    glVertex3f(690-10, 200, building_bg_offset);
+    glVertex3f(760-10, 200, building_bg_offset);
+    glVertex3f(760-10, 420-10, building_bg_offset);
+    glVertex3f(690-10, 440-10, building_bg_offset);
     glEnd();
 
     //fw
@@ -42,10 +45,10 @@ void Building_Shadows(bool isNight = false)
     else
         glColor3f(.808, .816, .855);
     glBegin(GL_QUADS);
-    glVertex3f(690, 200, 1.0f);
-    glVertex3f(760, 200, 1.0f);
-    glVertex3f(760, 420, 1.0f);
-    glVertex3f(690, 440, 1.0f);
+    glVertex3f(690, 200, building_fw_offset);
+    glVertex3f(760, 200, building_fw_offset);
+    glVertex3f(760, 420, building_fw_offset);
+    glVertex3f(690, 440, building_fw_offset);
     glEnd();
 
     //bg
@@ -54,10 +57,10 @@ void Building_Shadows(bool isNight = false)
     else
         glColor3f(0.392, .412, .519);
     glBegin(GL_QUADS);
-    glVertex3f(840-10, 250, 2.0f);
-    glVertex3f(910-10, 250, 2.0f);
-    glVertex3f(910-10, 470-10, 2.0f);
-    glVertex3f(840-10, 470-10, 2.0f);
+    glVertex3f(840-10, 250, building_bg_offset);
+    glVertex3f(910-10, 250, building_bg_offset);
+    glVertex3f(910-10, 470-10, building_bg_offset);
+    glVertex3f(840-10, 470-10, building_bg_offset);
     glEnd();
 
 
@@ -67,10 +70,10 @@ void Building_Shadows(bool isNight = false)
     else
         glColor3f(.808, .816, .855);
     glBegin(GL_QUADS);
-    glVertex3f(840, 250, 1.0f);
-    glVertex3f(910, 250, 1.0f);
-    glVertex3f(910, 470, 1.0f);
-    glVertex3f(840, 470, 1.0f);
+    glVertex3f(840, 250, building_fw_offset);
+    glVertex3f(910, 250, building_fw_offset);
+    glVertex3f(910, 470, building_fw_offset);
+    glVertex3f(840, 470, building_fw_offset);
     glEnd();
 
     //bg
@@ -79,10 +82,10 @@ void Building_Shadows(bool isNight = false)
     else
         glColor3f(0.392, .412, .519);
     glBegin(GL_QUADS);
-    glVertex3f(240-10, 250, 2.0f);
-    glVertex3f(310-10, 250, 2.0f);
-    glVertex3f(310-10, 470-10, 2.0f);
-    glVertex3f(240-10, 460-10, 2.0f);
+    glVertex3f(240-10, 250, building_bg_offset);
+    glVertex3f(310-10, 250, building_bg_offset);
+    glVertex3f(310-10, 470-10, building_bg_offset);
+    glVertex3f(240-10, 460-10, building_bg_offset);
     glEnd();
 
     //fw
@@ -91,10 +94,10 @@ void Building_Shadows(bool isNight = false)
     else
         glColor3f(.808, .816, .855);
     glBegin(GL_QUADS);
-    glVertex3f(240, 250, 1.0f);
-    glVertex3f(310, 250, 1.0f);
-    glVertex3f(310, 470, 1.0f);
-    glVertex3f(240, 460, 1.0f);
+    glVertex3f(240, 250, building_fw_offset);
+    glVertex3f(310, 250, building_fw_offset);
+    glVertex3f(310, 470, building_fw_offset);
+    glVertex3f(240, 460, building_fw_offset);
     glEnd();
 
     //bg
@@ -103,10 +106,10 @@ void Building_Shadows(bool isNight = false)
     else
         glColor3f(0.392, .412, .519);
     glBegin(GL_QUADS);
-    glVertex3f(340-10, 250, 2.0f);
-    glVertex3f(410-10, 250, 2.0f);
-    glVertex3f(410-10, 470-10, 2.0f);
-    glVertex3f(340-10, 470-10, 2.0f);
+    glVertex3f(340-10, 250, building_bg_offset);
+    glVertex3f(410-10, 250, building_bg_offset);
+    glVertex3f(410-10, 470-10, building_bg_offset);
+    glVertex3f(340-10, 470-10, building_bg_offset);
     glEnd();
 
     //fw
@@ -115,9 +118,9 @@ void Building_Shadows(bool isNight = false)
     else
         glColor3f(.808, .816, .855);
     glBegin(GL_QUADS);
-    glVertex3f(340, 250, 1.0f);
-    glVertex3f(410, 250, 1.0f);
-    glVertex3f(410, 470, 1.0f);
-    glVertex3f(340, 470, 1.0f);
+    glVertex3f(340, 250, building_fw_offset);
+    glVertex3f(410, 250, building_fw_offset);
+    glVertex3f(410, 470, building_fw_offset);
+    glVertex3f(340, 470, building_fw_offset);
     glEnd();
 }
