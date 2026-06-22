@@ -25,7 +25,7 @@ void Day_Scn()
     sunA();
     Clouds();
     Building_Shadows();
-    Ground_D();
+    Ground();
     smoke();
     Buildings();
     Trees();
@@ -44,7 +44,7 @@ void Night_Scn()
     Night_Sky();
     Moon();
     Building_Shadows(true);
-    Ground_N();
+    Ground(true);
     Buildings_N();
     Trees_N();
     Car_2_N();

@@ -4,6 +4,8 @@ float smokeX = 0;      // Starting position of the car
 float cloudX = 0;      // Starting position of the car
 float planeX = 0;      // Starting position of the car
 
+float planeZ = 2.0f;
+
 
 void smoke()
 {
@@ -91,27 +93,27 @@ void Night_Sky()
 void Plane()
 {
     glPushMatrix();
-    glTranslatef(planeX, 400,0);
-    glScalef(8.0f, 8.0f,0);
+    glTranslatef(planeX, 400, planeZ);
+    glScalef(8.0f, 8.0f, 0);
 
     glColor3f(.8, .8, 0.8);
     glBegin(GL_POLYGON);
-    glVertex2f(21, 20);
-    glVertex2f(18, 19);
-    glVertex2f(21, 19);
-    glVertex2f(24, 19);
-    glVertex2f(24, 20);
-    glVertex2f(25, 21);
+    glVertex3f(21, 20, planeZ);
+    glVertex3f(18, 19, planeZ);
+    glVertex3f(21, 19, planeZ);
+    glVertex3f(24, 19, planeZ);
+    glVertex3f(24, 20, planeZ);
+    glVertex3f(25, 21, planeZ);
     glEnd();
 
     glColor3f(1, 1, 1);
-    drawCircle(20, 19.6, 0.2);
+    drawCircle(20, 19.6, 0.2, planeZ);
 
     glColor3f(0, 0, 1);
-    drawCircle(23.8, 20, 0.2);
+    drawCircle(23.8, 20, 0.2, planeZ);
 
     glColor3f(1, 0, 0);
-    drawCircle(23.8, 19.5, 0.2);
+    drawCircle(23.8, 19.5, 0.2, planeZ);
 
     glPopMatrix();
 }
@@ -164,231 +166,151 @@ void Clouds()
 void sunA()
 {
     glColor3f(.882, .937, .161); //SUN
-    drawCircle(1000.0f, 530.0f, 40.0f, 5.0f);
+    drawCircle(1000.0f, 530.0f, 40.0f, 0.0f);
 }
 
 void Moon()
 {
     glColor3f(.960, .941, .832); //moon
-    drawCircle(1000.0f, 530.0f, 40.0f, 5.0f);
+    drawCircle(1000.0f, 530.0f, 40.0f, 0.0f);
 }
 
-void Ground_D()
+float ground_offset = 4.0f;
+float road_offset = 5.0f;
+float extended_road_offset = 5.5f;
+
+void Ground(bool isNight = false)
 {
-    glColor3f(0.360f, 0.478f, 0.470f);//Main Road
+    if (isNight)
+        glColor3f(0.252f, 0.334f, 0.329f);
+    else
+        glColor3f(0.360f, 0.478f, 0.470f);//Main Road
     glBegin(GL_QUADS);
-    glVertex2f(0, 0);
-    glVertex2f(1200, 0);
-    glVertex2f(1200, 130);
-    glVertex2f(0, 130);
+    glVertex3f(0, 0, road_offset);
+    glVertex3f(1200, 0, road_offset);
+    glVertex3f(1200, 130, road_offset);
+    glVertex3f(0, 130, road_offset);
     glEnd();
 
-    glColor3f(1.0f, 1.0f, 1.0f);//White stripe on the road
+    if (isNight)
+        glColor3f(0.7f, 0.7f, 0.7f);
+    else
+        glColor3f(1.0f, 1.0f, 1.0f);//White stripe on the road
     glBegin(GL_QUADS);
-    glVertex2f(0, 63);
-    glVertex2f(1200, 63);
-    glVertex2f(1200, 67);
-    glVertex2f(0, 67);
+    glVertex3f(0, 63, road_offset+0.1f);
+    glVertex3f(1200, 63, road_offset+0.1f);
+    glVertex3f(1200, 67, road_offset+0.1f);
+    glVertex3f(0, 67, road_offset+0.1f);
     glEnd();
 
     glColor3f(.525f, 0.525, 0.525f);//Main Sidewalk Height
     glBegin(GL_QUADS);
-    glVertex2f(0, 130);
-    glVertex2f(1200, 130);
-    glVertex2f(1200, 136);
-    glVertex2f(0, 136);
+    glVertex3f(0, 130, road_offset);
+    glVertex3f(1200, 130, road_offset);
+    glVertex3f(1200, 136, road_offset);
+    glVertex3f(0, 136, road_offset);
     glEnd();
 
-    glColor3f(.647, 0.647, 0.647);// Sidewalk
+    if (isNight)
+        glColor3f(0.453f, 0.453f, 0.453f);
+    else
+        glColor3f(.647, 0.647, 0.647);// Sidewalk
     glBegin(GL_QUADS);
-    glVertex2f(0, 136);
-    glVertex2f(1200, 136);
-    glVertex2f(1200, 160);
-    glVertex2f(0, 160);
+    glVertex3f(0, 136, road_offset);
+    glVertex3f(1200, 136, road_offset);
+    glVertex3f(1200, 160, road_offset);
+    glVertex3f(0, 160, road_offset);
     glEnd();
 
-    glColor3f(.537, 0.792, 0.306); //Green Ground
+    if (isNight)
+        glColor3f(0.376f, 0.554f, 0.214f);
+    else
+        glColor3f(.537, 0.792, 0.306); //Green Ground
     glBegin(GL_QUADS);
-    glVertex2f(0, 160);
-    glVertex2f(1200, 160);
-    glVertex2f(1200, 250);
-    glVertex2f(0, 250);
+    glVertex3f(0, 160, ground_offset);
+    glVertex3f(1200, 160, ground_offset);
+    glVertex3f(1200, 250, ground_offset);
+    glVertex3f(0, 250, ground_offset);
 
     //Extended Road towards Medical College
 
-    glColor3f(.647, 0.647, 0.647);//Sub Sidewalk left
+    if (isNight)
+        glColor3f(0.453f, 0.453f, 0.453f);
+    else
+        glColor3f(.647, 0.647, 0.647);//Sub Sidewalk left
     glBegin(GL_QUADS);
-    glVertex2f(280, 136);
-    glVertex2f(320, 206);
-    glVertex2f(345, 206);
-    glVertex2f(315, 136);
+    glVertex3f(280, 136, extended_road_offset+0.1f);
+    glVertex3f(320, 206, extended_road_offset);
+    glVertex3f(345, 206, extended_road_offset);
+    glVertex3f(315, 136, extended_road_offset);
     glEnd();
 
     glColor3f(.525f, 0.525, 0.525f);//Sub Sidewalk shadow
     glBegin(GL_QUADS);
-    glVertex2f(310, 130);
-    glVertex2f(345, 206);
-    glVertex2f(349, 206);
-    glVertex2f(314, 130);
+    glVertex3f(310, 130, extended_road_offset);
+    glVertex3f(345, 206, extended_road_offset);
+    glVertex3f(349, 206, extended_road_offset);
+    glVertex3f(314, 130, extended_road_offset);
     glEnd();
 
-    glColor3f(.647, 0.647, 0.647);//Sub Sidewalk right
+    if (isNight)
+        glColor3f(0.453f, 0.453f, 0.453f);
+    else
+        glColor3f(.647, 0.647, 0.647);//Sub Sidewalk right
     glBegin(GL_QUADS);
-    glVertex2f(480, 136);
-    glVertex2f(445, 206);
-    glVertex2f(475, 206);
-    glVertex2f(520, 136);
+    glVertex3f(480, 136, extended_road_offset);
+    glVertex3f(445, 206, extended_road_offset);
+    glVertex3f(475, 206, extended_road_offset);
+    glVertex3f(520, 136, extended_road_offset);
 
     glColor3f(.525f, 0.525, 0.525f);//Sub Sidewalk shadow
     glBegin(GL_QUADS);
-    glVertex2f(480, 136);
-    glVertex2f(445, 206);
-    glVertex2f(442, 206);
-    glVertex2f(477, 130);
+    glVertex3f(480, 136, extended_road_offset);
+    glVertex3f(445, 206, extended_road_offset);
+    glVertex3f(442, 206, extended_road_offset);
+    glVertex3f(477, 130, extended_road_offset);
     glEnd();
 
     glColor3f(.525f, 0.525, 0.525f);//Middle Sidewalk shadow
     glBegin(GL_QUADS);
-    glVertex2f(445, 202);
-    glVertex2f(442, 206);
-    glVertex2f(349, 206);
-    glVertex2f(345, 202);
+    glVertex3f(445, 202, extended_road_offset);
+    glVertex3f(442, 206, extended_road_offset);
+    glVertex3f(349, 206, extended_road_offset);
+    glVertex3f(345, 202, extended_road_offset);
     glEnd();
 
-    glColor3f(.647, 0.647, 0.647);//Middle Sidewalk
+    if (isNight)
+        glColor3f(0.453f, 0.453f, 0.453f);
+    else
+        glColor3f(.647, 0.647, 0.647);//Middle Sidewalk
     glBegin(GL_POLYGON);
-    glVertex2f(320, 206);
-    glVertex2f(475, 206);
-    glVertex2f(470, 214);
-    glVertex2f(465, 216);
-    glVertex2f(330, 216);
-    glVertex2f(325, 214);
+    glVertex3f(320, 206, extended_road_offset);
+    glVertex3f(475, 206, extended_road_offset);
+    glVertex3f(470, 214, extended_road_offset);
+    glVertex3f(465, 216, extended_road_offset);
+    glVertex3f(330, 216, extended_road_offset);
+    glVertex3f(325, 214, extended_road_offset);
     glEnd();
 
-    glColor3f(.360f, .478f, .470f);//Extended Main Road
+    if (isNight)
+        glColor3f(0.252f, 0.334f, 0.329f);
+    else
+        glColor3f(.360f, .478f, .470f);//Extended Main Road
     glBegin(GL_QUADS);
-    glVertex2f(314, 130);
-    glVertex2f(347, 202);
-    glVertex2f(444, 202);
-    glVertex2f(478, 130);
+    glVertex3f(314, 130, extended_road_offset);
+    glVertex3f(347, 202, extended_road_offset);
+    glVertex3f(444, 202, extended_road_offset);
+    glVertex3f(478, 130, extended_road_offset);
     glEnd();
 
-
-    glColor3f(1,1,1);//Extended Main Road Stripe
+    if (isNight)
+        glColor3f(0.7,0.7,0.7);
+    else
+        glColor3f(1,1,1);//Extended Main Road Stripe
     glBegin(GL_QUADS);
-    glVertex2f(396, 130);
-    glVertex2f(396, 202);
-    glVertex2f(400, 202);
-    glVertex2f(400, 130);
-    glEnd();
-}
-
-void Ground_N()
-{
-    glColor3f(0.252f, 0.334f, 0.329f);//Main Road
-    glBegin(GL_QUADS);
-    glVertex2f(0, 0);
-    glVertex2f(1200, 0);
-    glVertex2f(1200, 130);
-    glVertex2f(0, 130);
-    glEnd();
-
-    glColor3f(0.7f, 0.7f, 0.7f);//White stripe on the road
-    glBegin(GL_QUADS);
-    glVertex2f(0, 63);
-    glVertex2f(1200, 63);
-    glVertex2f(1200, 67);
-    glVertex2f(0, 67);
-    glEnd();
-
-    glColor3f(.525f, 0.525, 0.525f);//Main Sidewalk Height
-    glBegin(GL_QUADS);
-    glVertex2f(0, 130);
-    glVertex2f(1200, 130);
-    glVertex2f(1200, 136);
-    glVertex2f(0, 136);
-    glEnd();
-
-    glColor3f(0.453f, 0.453f, 0.453f);// Sidewalk
-    glBegin(GL_QUADS);
-    glVertex2f(0, 136);
-    glVertex2f(1200, 136);
-    glVertex2f(1200, 160);
-    glVertex2f(0, 160);
-    glEnd();
-
-    glColor3f(0.376f, 0.554f, 0.214f); //Green Ground
-    glBegin(GL_QUADS);
-    glVertex2f(0, 160);
-    glVertex2f(1200, 160);
-    glVertex2f(1200, 250);
-    glVertex2f(0, 250);
-
-    //Extended Road towards Medical College
-
-    glColor3f(0.453f, 0.453f, 0.453f);//Sub Sidewalk left
-    glBegin(GL_QUADS);
-    glVertex2f(280, 136);
-    glVertex2f(320, 206);
-    glVertex2f(345, 206);
-    glVertex2f(315, 136);
-    glEnd();
-
-    glColor3f(.525f, 0.525, 0.525f);//Sub Sidewalk shadow
-    glBegin(GL_QUADS);
-    glVertex2f(310, 130);
-    glVertex2f(345, 206);
-    glVertex2f(349, 206);
-    glVertex2f(314, 130);
-    glEnd();
-
-    glColor3f(0.453f, 0.453f, 0.453f);//Sub Sidewalk right
-    glBegin(GL_QUADS);
-    glVertex2f(480, 136);
-    glVertex2f(445, 206);
-    glVertex2f(475, 206);
-    glVertex2f(520, 136);
-
-    glColor3f(.525f, 0.525, 0.525f);//Sub Sidewalk shadow
-    glBegin(GL_QUADS);
-    glVertex2f(480, 136);
-    glVertex2f(445, 206);
-    glVertex2f(442, 206);
-    glVertex2f(477, 130);
-    glEnd();
-
-    glColor3f(.525f, 0.525, 0.525f);//Middle Sidewalk shadow
-    glBegin(GL_QUADS);
-    glVertex2f(445, 202);
-    glVertex2f(442, 206);
-    glVertex2f(349, 206);
-    glVertex2f(345, 202);
-    glEnd();
-
-    glColor3f(0.453f, 0.453f, 0.453f);//Middle Sidewalk
-    glBegin(GL_POLYGON);
-    glVertex2f(320, 206);
-    glVertex2f(475, 206);
-    glVertex2f(470, 214);
-    glVertex2f(465, 216);
-    glVertex2f(330, 216);
-    glVertex2f(325, 214);
-    glEnd();
-
-    glColor3f(0.252f, 0.334f, 0.329f);//Extended Main Road
-    glBegin(GL_QUADS);
-    glVertex2f(314, 130);
-    glVertex2f(347, 202);
-    glVertex2f(444, 202);
-    glVertex2f(478, 130);
-    glEnd();
-
-
-    glColor3f(0.7,0.7,0.7);//Extended Main Road stripe
-    glBegin(GL_QUADS);
-    glVertex2f(396, 130);
-    glVertex2f(396, 202);
-    glVertex2f(400, 202);
-    glVertex2f(400, 130);
+    glVertex3f(396, 130, extended_road_offset+0.1f);
+    glVertex3f(396, 202, extended_road_offset+0.1f);
+    glVertex3f(400, 202, extended_road_offset+0.1f);
+    glVertex3f(400, 130, extended_road_offset+0.1f);
     glEnd();
 }
