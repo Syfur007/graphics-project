@@ -21,6 +21,8 @@ void Day_Scn()
 
     applyCamera();
 
+    drawGrid(1200, 50);
+
     Day_Sky();
     sunA();
     Clouds();
@@ -40,6 +42,8 @@ void Night_Scn()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     applyCamera();
+
+    drawGrid(1200, 50);
 
     Night_Sky();
     Moon();
@@ -125,9 +129,9 @@ void keyboard1(unsigned char key, int x, int y)
     case 'r':
     case 'R':
         // Reset camera to default orbital position
-        rotX    = 20.0f;
+        rotX    = 00.0f;
         rotY    = 0.0f;
-        camDist = 900.0f;
+        camDist = 700.0f;
         glutPostRedisplay();
         break;
     case 27: // ESC

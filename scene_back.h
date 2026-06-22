@@ -181,6 +181,25 @@ float extended_road_offset = 5.5f;
 
 void Ground(bool isNight = false)
 {
+
+    glColor3f(0.5f, 0.5f, 0.5f); 
+    glBegin(GL_QUADS);
+        glVertex3f(500.0f, 150.0f, extended_road_offset+0.1f);
+        glVertex3f(505.0f, 150.0f, extended_road_offset+0.1f);
+        glVertex3f(505.0f, 195.0f, extended_road_offset+0.1f);
+        glVertex3f(500.0f, 195.0f, extended_road_offset+0.1f);
+    glEnd();
+    
+    glColor3f(1.0f, 0.0f, 0.0f); 
+    glBegin(GL_POLYGON);
+        glVertex3f(515.5f, 200.0f, extended_road_offset + 0.2f); // Right
+        glVertex3f(509.0f, 211.26f, extended_road_offset + 0.2f); // Top Right
+        glVertex3f(496.0f, 211.26f, extended_road_offset + 0.2f); // Top Left
+        glVertex3f(489.5f, 200.0f, extended_road_offset + 0.2f); // Left
+        glVertex3f(496.0f, 188.74f, extended_road_offset + 0.2f); // Bottom Left
+        glVertex3f(509.0f, 188.74f, extended_road_offset + 0.2f); // Bottom Right
+    glEnd();
+
     if (isNight)
         glColor3f(0.252f, 0.334f, 0.329f);
     else
