@@ -5,7 +5,10 @@ float cloudX = 0;      // Starting position of the car
 float planeX = 0;      // Starting position of the car
 
 float planeZ = 2.0f;
+float traffic_z_offset = 15.0f;
 
+enum TrafficState { RED, GREEN, YELLOW };
+TrafficState currentTrafficState = RED;
 
 void smoke()
 {
@@ -332,4 +335,56 @@ void Ground(bool isNight = false)
     glVertex3f(400, 202, extended_road_offset+0.1f);
     glVertex3f(400, 130, extended_road_offset+0.1f);
     glEnd();
+}
+
+
+void DrawTrafficLight()
+{
+    // Check if the state variable can be seen safely from scene.h
+    extern TrafficState currentTrafficState;
+
+    glPushMatrix();
+    // Position the traffic pole near x = 250, y = 140 (just at the edge of the sidewalk/road)
+    glTranslatef(250.0f, 0.0f, 0.0f);
+
+    // 1. Draw Post Pole (Gray Rectangle)
+    glColor3f(0.3f, 0.3f, 0.3f);
+    glBegin(GL_QUADS);
+        glVertex3f(-3.0f, 0.0f, traffic_z_offset);
+        glVertex3f(3.0f, 0.0f, traffic_z_offset);
+        glVertex3f(3.0f, 60.0f, traffic_z_offset);
+        glVertex3f(-3.0f, 60.0f, traffic_z_offset);
+    glEnd();
+
+    // 2. Draw Light Box Box Housing (Black Back-plate)
+    glColor3f(0.1f, 0.1f, 0.1f);
+    glBegin(GL_QUADS);
+        glVertex3f(-8.0f, 60.0f, traffic_z_offset + 0.1f);
+        glVertex3f(8.0f, 60.0f, traffic_z_offset + 0.1f);
+        glVertex3f(8.0f, 105.0f, traffic_z_offset + 0.1f);
+        glVertex3f(-8.0f, 105.0f, traffic_z_offset + 0.1f);
+    glEnd();
+
+    // 3. Draw Red Lamp (Top)
+    if (currentTrafficState == RED)
+        glColor3f(1.0f, 0.0f, 0.0f); // Bright active Red
+    else
+        glColor3f(0.2f, 0.0f, 0.0f); // Dim inactive Red
+    drawCircle(0.0f, 95.0f, 5.0f, traffic_z_offset + 0.2f);
+
+    // 4. Draw Yellow Lamp (Middle)
+    if (currentTrafficState == YELLOW)
+        glColor3f(1.0f, 0.8f, 0.0f); // Bright active Yellow
+    else
+        glColor3f(0.2f, 0.16f, 0.0f); // Dim inactive Yellow
+    drawCircle(0.0f, 82.5f, 5.0f, traffic_z_offset + 0.2f);
+
+    // 5. Draw Green Lamp (Bottom)
+    if (currentTrafficState == GREEN)
+        glColor3f(0.0f, 1.0f, 0.0f); // Bright active Green
+    else
+        glColor3f(0.0f, 0.2f, 0.0f); // Dim inactive Green
+    drawCircle(0.0f, 70.0f, 5.0f, traffic_z_offset + 0.2f);
+
+    glPopMatrix();
 }

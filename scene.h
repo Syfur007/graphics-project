@@ -11,6 +11,7 @@ float cloudSpeed = 0.0f;
 float planeSpeed = 3.0f;
 
 int lightTimerAccumulator = 0;
+int trafficTimerAccumulator = 0;
 
 
 // Declared in main.cpp — applies the orbital perspective camera
@@ -30,6 +31,7 @@ void Day_Scn()
     Clouds();
     Building_Shadows();
     Ground();
+    DrawTrafficLight();
     smoke();
     Buildings();
     Trees();
@@ -51,6 +53,7 @@ void Night_Scn()
     Moon();
     Building_Shadows(true);
     Ground(true);
+    DrawTrafficLight();
     Buildings_N();
     Trees_N();
     Car_1(true);
@@ -116,6 +119,25 @@ void update1(int value)
     {
         showRedLight = !showRedLight;  // Toggle the light state
         lightTimerAccumulator = 0;     // Reset the accumulator
+    }
+
+    // --- TRAFFIC LIGHT TIMING CYCLE ---
+    trafficTimerAccumulator += 16; // Add roughly 16ms per frame
+    
+    if (currentTrafficState == RED && trafficTimerAccumulator >= 3000) // 4 seconds for Red
+    {
+        currentTrafficState = GREEN;
+        trafficTimerAccumulator = 0;
+    }
+    else if (currentTrafficState == GREEN && trafficTimerAccumulator >= 3000) // 4 seconds for Green
+    {
+        currentTrafficState = YELLOW;
+        trafficTimerAccumulator = 0;
+    }
+    else if (currentTrafficState == YELLOW && trafficTimerAccumulator >= 1000) // 1.5 seconds for Yellow
+    {
+        currentTrafficState = RED;
+        trafficTimerAccumulator = 0;
     }
 
     glutPostRedisplay();
