@@ -53,8 +53,8 @@ void Night_Scn()
     Ground(true);
     Buildings_N();
     Trees_N();
-    Car_2_N();
-    Car_1_N();
+    Car_1(true);
+    Car_2(true);
     Plane();
 
     glutSwapBuffers();
