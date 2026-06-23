@@ -91,10 +91,10 @@ void update1(int value)
         busX = 1250;
 
     //smoke
-    smokeX += smokeSpeed;
+    smokeY += smokeSpeed;
 
-    if (smokeX > 550)
-        smokeX = -20;
+    if (smokeY > 550)
+        smokeY = -20;
 
     //cloud
     cloudX += cloudSpeed;

@@ -1,6 +1,6 @@
 #include "scene_utils.h"
 
-float smokeX = 0;      // Starting position of the car
+float smokeY = 0;      // Starting position of the car
 float cloudX = 0;      // Starting position of the car
 float planeX = 0;      // Starting position of the car
 
@@ -10,7 +10,7 @@ float planeZ = 2.0f;
 void smoke()
 {
     glPushMatrix();
-    glTranslatef(0,smokeX, 0);
+    glTranslatef(0,smokeY, 0);
     glColor3f(0.6f, 0.6f, 0.6f);
 
     drawCircle(640, 350, 10);
