@@ -7,6 +7,8 @@ float planeX = 0;      // Starting position of the car
 float planeZ = 2.0f;
 float traffic_z_offset = 15.0f;
 
+float sky_offset = -30.0f; // Z offset for sky layers to ensure they are drawn behind everything else
+
 enum TrafficState { RED, GREEN, YELLOW };
 TrafficState currentTrafficState = RED;
 
@@ -26,10 +28,10 @@ void Day_Sky()
 {
     glColor3f(0.53f, 0.81f, 0.92f); // Light blue sky
     glBegin(GL_QUADS);
-    glVertex3f(0, 0, -10.0f);
-    glVertex3f(1200, 0, -10.0f);
-    glVertex3f(1200, 600, -10.0f);
-    glVertex3f(0, 600, -10.0f);
+    glVertex3f(0, 0, sky_offset);
+    glVertex3f(1200, 0, sky_offset);
+    glVertex3f(1200, 600, sky_offset);
+    glVertex3f(0, 600, sky_offset);
     glEnd();
 }
 
@@ -37,10 +39,10 @@ void Night_Sky()
 {
     glColor3f(0.0f, 0.0f, 0.0f); // Light blue sky
     glBegin(GL_QUADS);
-    glVertex3f(0, 0, -10.0f);
-    glVertex3f(1200, 0, -10.0f);
-    glVertex3f(1200, 600, -10.0f);
-    glVertex3f(0, 600, -10.0f);
+    glVertex3f(0, 0, sky_offset);
+    glVertex3f(1200, 0, sky_offset);
+    glVertex3f(1200, 600, sky_offset);
+    glVertex3f(0, 600, sky_offset);
     glEnd();
 
     glPointSize(3.0f); // Set the size of the points to create visible stars

@@ -10,6 +10,31 @@ float building_shadow_offset = building_offset - 1.0f;
 
 
 void Hospital(bool isNight = false) {
+    // True 3D depth parameters
+    float zFront = building_offset;         // Sits at 9.0f
+    float zBack  = -50.0f;                  // Pushes back into the distance to give real volume
+    
+    // Choose side-wall illumination based on Day/Night cycle
+    if (isNight)
+        glColor3f(0.35f, 0.35f, 0.35f);     // Darker tones for 3D side shadows at night
+    else
+        glColor3f(0.55f, 0.55f, 0.55f);     // Grounded structural shadow during day
+
+    // Leftmost wing edge side extrusion (from x = -20)
+    drawExtrudedSide(-20, 185, -20, 355, zFront, zBack);
+
+    // Rightmost wing edge side extrusion (from x = 270)
+    drawExtrudedSide(270, 185, 270, 345, zFront, zBack);
+
+    // Main Center Building elevated profile side extrusions (x = 80 and x = 180)
+    // Connects the forward jutting center block cleanly to the rest of the layout
+    drawExtrudedSide(80, 185, 80, 400, zFront, zBack);
+    drawExtrudedSide(180, 185, 180, 400, zFront, zBack);
+
+    // Top Roof side extrusions to prevent hollow gaps when looking down from an angle
+    drawExtrudedSide(-20, 355, 80, 355, zFront, zBack);
+    drawExtrudedSide(180, 355, 260, 355, zFront, zBack);
+    drawExtrudedSide(90, 410, 170, 410, zFront, zBack);
 
     if (isNight)
         glColor3f(0.658, 0.658, 0.658); // Main building (Darker)
@@ -162,6 +187,47 @@ void Hospital(bool isNight = false) {
 }
 
 void Medical_University(bool isNight = false) {
+    // True 3D depth parameters
+    float zFrontMain   = building_offset;         // Sits at 9.0f
+    float zFrontCenter = building_middle_offset;  // Sits at 10.0f (recessed/different forward block)
+    float zBack        = -30.0f;                  // Deep matching background plane for consistency
+
+    if (isNight)
+        glColor3f(0.25f, 0.25f, 0.25f);     // Dark side shadows at night
+    else
+        glColor3f(0.6f, 0.6f, 0.6f);        // Side structure shading under daytime sun
+
+    // --- Right Building Blocks Extrusions ---
+    // Leftmost edge of the entire university structure (at x = 300)
+    drawExtrudedSide(300, 230, 300, 415, zFrontMain, zBack);
+    // Top angled roof elements for the right building
+    drawExtrudedSide(300, 415, 305, 420, zFrontMain, zBack);
+    drawExtrudedSide(305, 420, 395, 420, zFrontMain, zBack);
+    drawExtrudedSide(395, 420, 400, 415, zFrontMain, zBack);
+    // Right inner edge where it meets the center block (at x = 400)
+    drawExtrudedSide(400, 230, 400, 415, zFrontMain, zBack);
+
+    // --- Left Building Blocks Extrusions ---
+    // Left inner edge near the center block (at x = 420)
+    drawExtrudedSide(420, 230, 420, 415, zFrontMain, zBack);
+    // Top angled roof elements for the left building
+    drawExtrudedSide(420, 415, 425, 420, zFrontMain, zBack);
+    drawExtrudedSide(425, 420, 515, 420, zFrontMain, zBack);
+    drawExtrudedSide(515, 420, 520, 415, zFrontMain, zBack);
+    // Rightmost ultimate boundary of the university structure (at x = 520)
+    drawExtrudedSide(520, 230, 520, 415, zFrontMain, zBack);
+
+    // --- Center Building (Recessed Mid-Section Block) Extrusions ---
+    // Left edge transition (at x = 360)
+    drawExtrudedSide(360, 230, 360, 345, zFrontCenter, zBack);
+    // Roof transitions
+    drawExtrudedSide(360, 345, 365, 350, zFrontCenter, zBack);
+    drawExtrudedSide(365, 350, 455, 350, zFrontCenter, zBack);
+    drawExtrudedSide(455, 350, 460, 345, zFrontCenter, zBack);
+    // Right edge transition (at x = 460)
+    drawExtrudedSide(460, 230, 460, 345, zFrontCenter, zBack);
+
+
     // Left building
     if (isNight)
         glColor3f(0.5, 0.5, 0.5);
@@ -177,7 +243,6 @@ void Medical_University(bool isNight = false) {
     glEnd();
 
     //Left building windows
-
     if (isNight)
         glColor3f(0.3, 0.4, 0.45);
     else
@@ -192,7 +257,6 @@ void Medical_University(bool isNight = false) {
     glEnd();
     
     // Right building
-    
     if (isNight)
         glColor3f(0.5, 0.5, 0.5);
     else
@@ -207,7 +271,6 @@ void Medical_University(bool isNight = false) {
     glEnd();
 
     // Right building windows
-
     if (isNight)
         glColor3f(0.3, 0.4, 0.45);
     else
@@ -222,7 +285,6 @@ void Medical_University(bool isNight = false) {
     glEnd();
     
     //window Lines Horizontal
-    
     if (isNight)
         glColor3f(0.5, 0.5, 0.5);
     else
@@ -253,7 +315,6 @@ void Medical_University(bool isNight = false) {
     glEnd();
     
     //window Lines vertical
-    
     if (isNight)
         glColor3f(0.5, 0.5, 0.5);
     else
@@ -269,7 +330,7 @@ void Medical_University(bool isNight = false) {
     glVertex3f(369, 416, building_window_offset + 0.1f);
     glVertex3f(389, 240, building_window_offset + 0.1f);
     glVertex3f(389, 416, building_window_offset + 0.1f);
-    glVertex3f(429, 240, building_window_offset + 0.1f);//Building on the right
+    glVertex3f(429, 240, building_window_offset + 0.1f);
     glVertex3f(429, 416, building_window_offset + 0.1f);
     glVertex3f(449, 240, building_window_offset + 0.1f);
     glVertex3f(449, 416, building_window_offset + 0.1f);
@@ -282,7 +343,6 @@ void Medical_University(bool isNight = false) {
     glEnd();
 
     // Center building
-    
     if (isNight)
         glColor3f(0.5, 0.5, 0.5);
     else
@@ -297,7 +357,6 @@ void Medical_University(bool isNight = false) {
     glEnd();
 
     // Center building Windows
-
     if (isNight)
         glColor3f(0.3, 0.4, 0.45);
     else
@@ -346,11 +405,10 @@ void Medical_University(bool isNight = false) {
     glEnd();
 
     //University Entrance
-
     if (isNight)
         glColor3f(0.5, 0.6, 0.55);
     else
-        glColor3f(0.773,0.800,0.769);//DOor
+        glColor3f(0.773,0.800,0.769);
     glBegin(GL_POLYGON);
     glVertex3f(390, 230, building_middle_offset + 0.5f);
     glVertex3f(390, 265, building_middle_offset + 0.5f);
@@ -358,10 +416,9 @@ void Medical_University(bool isNight = false) {
     glVertex3f(425, 270, building_middle_offset + 0.5f);
     glVertex3f(430, 265, building_middle_offset + 0.5f);
     glVertex3f(430, 230, building_middle_offset + 0.5f);
-
     glEnd();
 
-    glColor3f(0,0,0);//DOor
+    glColor3f(0,0,0);
     glBegin(GL_LINES);
     glVertex3f(410, 230, building_middle_offset + 0.6f);
     glVertex3f(410, 270, building_middle_offset + 0.6f);
@@ -530,6 +587,25 @@ void Pharmacy(bool isNight = false) {
 }
 
 void MegaMall(bool isNight = false) {
+    // True 3D depth parameters
+    float zFront = building_offset;         // Sits at 9.0f
+    float zBack  = -30.0f;
+
+    if (isNight)
+        glColor3f(0.25f, 0.25f, 0.25f);     // Dark side-wall shadow at night
+    else
+        glColor3f(0.5f, 0.5f, 0.55f);       // Metallic side-wall shading under daylight
+
+    // Leftmost outer edge boundary (at x = 800)
+    drawExtrudedSide(860, 200, 860, 400, zFront, zBack);
+    
+    // Top roof angled profile lines
+    drawExtrudedSide(860, 400, 1010, 440, zFront, zBack);
+    drawExtrudedSide(1010, 440, 1160, 390, zFront, zBack);
+    
+    // Rightmost outer edge boundary (at x = 1160)
+    drawExtrudedSide(1160, 200, 1160, 390, zFront, zBack);
+
     if (isNight)
         glColor3f(0.4, 0.4, 0.35);
     else

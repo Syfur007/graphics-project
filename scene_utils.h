@@ -58,4 +58,14 @@ void drawGrid(int size, float step) {
     }
 }
 
+// Automatically draws a 3D connecting side wall between two depths
+void drawExtrudedSide(float x1, float y1, float x2, float y2, float zFront, float zBack) {
+    glBegin(GL_QUADS);
+        glVertex3f(x1, y1, zFront);
+        glVertex3f(x2, y2, zFront);
+        glVertex3f(x2, y2, zBack);
+        glVertex3f(x1, y1, zBack);
+    glEnd();
+}
+
 #endif // SCENE_UTILS_INC
