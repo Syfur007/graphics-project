@@ -10,6 +10,8 @@ float smokeSpeed = 4.0f;
 float cloudSpeed = 0.0f;
 float planeSpeed = 3.0f;
 
+int lightTimerAccumulator = 0;
+
 
 // Declared in main.cpp — applies the orbital perspective camera
 extern void applyCamera();
@@ -107,6 +109,14 @@ void update1(int value)
 
     if (planeX < -200)
         planeX = 1300;
+
+
+    lightTimerAccumulator += 16; 
+    if (lightTimerAccumulator >= 1000) 
+    {
+        showRedLight = !showRedLight;  // Toggle the light state
+        lightTimerAccumulator = 0;     // Reset the accumulator
+    }
 
     glutPostRedisplay();
     glutTimerFunc(16, update1, 0);

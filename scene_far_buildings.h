@@ -1,7 +1,7 @@
 float building_fw_offset = -1.0f; 
 float building_bg_offset = -2.0f;
 
-bool showCircle = true;
+bool showRedLight = true;
 
 
 void Building_Shadows(bool isNight = false)
@@ -92,6 +92,7 @@ void Building_Shadows(bool isNight = false)
     glVertex3f(690-10, 440-10, building_bg_offset);
     glEnd();
 
+
     //fw
     if (isNight)
         glColor3f(.4, .4, .4);
@@ -103,6 +104,24 @@ void Building_Shadows(bool isNight = false)
     glVertex3f(760, 420, building_fw_offset);
     glVertex3f(690, 440, building_fw_offset);
     glEnd();
+
+
+    // Light
+    if (isNight) {
+        glColor3f(.6, .6, .6);
+        glBegin(GL_QUADS);
+        glVertex3f(905, 470, building_fw_offset);
+        glVertex3f(910, 470, building_fw_offset);
+        glVertex3f(910, 480, building_fw_offset);
+        glVertex3f(905, 480, building_fw_offset);
+        glEnd();
+
+        if (showRedLight)
+            glColor3f(.9, 0, 0);
+        else
+            glColor3f(.6, .6, .6);
+        drawCircle(907.5, 482, 5);
+    }
 
     //bg
     if (isNight)
