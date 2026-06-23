@@ -68,4 +68,30 @@ void drawExtrudedSide(float x1, float y1, float x2, float y2, float zFront, floa
     glEnd();
 }
 
+void drawPedestrian()
+{
+    extern float pedX, pedY, pedZ;
+    extern bool pedActive;
+
+    if (!pedActive) return; // Skip rendering if no active person on path
+
+    glPushMatrix();
+    glTranslatef(pedX, pedY, pedZ);
+
+    // Human Torso / Coat (Green/Brown attire)
+    glColor3f(0.2f, 0.5f, 0.3f);
+    glBegin(GL_QUADS);
+        glVertex3f(-4.0f, 0.0f, 0.0f);
+        glVertex3f(4.0f, 0.0f, 0.0f);
+        glVertex3f(3.0f, 15.0f, 0.0f);
+        glVertex3f(-3.0f, 15.0f, 0.0f);
+    glEnd();
+
+    // Human Head
+    glColor3f(0.9f, 0.7f, 0.6f); // Flesh tone
+    drawCircle(0.0f, 19.0f, 3.5f, 0.1f);
+
+    glPopMatrix();
+}
+
 #endif // SCENE_UTILS_INC

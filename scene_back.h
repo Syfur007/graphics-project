@@ -7,7 +7,7 @@ float planeX = 0;      // Starting position of the car
 float cloudZ = -30.0f;
 float planeZ = 2.0f;
 float sunMoonZ = -34.0f;
-float traffic_z_offset = 15.0f;
+float traffic_z_offset = 20.0f;
 
 float sky_offset = -35.0f; // Z offset for sky layers to ensure they are drawn behind everything else
 

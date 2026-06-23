@@ -1,14 +1,14 @@
 #include "scene_utils.h"
 
 float carX = -500;      // Starting position of the car
-float carZ = 14.0f;      // Starting position of the car
+float carZ = 8.0f;      
 float busX = 0;      // Starting position of the car
-float busZ = 12.0f;      // Starting position of the car
+float busZ = 7.0f;      
 
 void Car_1(bool isNight = false)
 {
     glPushMatrix();
-    glTranslatef(carX, 0, 0);
+    glTranslatef(carX, 0, carZ);
 
     if (isNight) {
         //headlight
@@ -80,7 +80,7 @@ void Car_1(bool isNight = false)
 void Car_2(bool isNight = false)
 {
     glPushMatrix();
-    glTranslatef(busX, 0, 0);
+    glTranslatef(busX, 0, busZ);
 
 
     // Car Body (Blue color)

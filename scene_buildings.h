@@ -404,9 +404,9 @@ void Medical_University(bool isNight = false) {
 
     //University Entrance
     if (isNight)
-        glColor3f(0.5, 0.6, 0.55);
+        glColor3f(0.5, 0.5, 0.5);
     else
-        glColor3f(0.773,0.800,0.769);
+        glColor3f(1, 1, 1);
     glBegin(GL_POLYGON);
     glVertex3f(390, 230, building_middle_offset + 0.5f);
     glVertex3f(390, 265, building_middle_offset + 0.5f);
@@ -416,11 +416,57 @@ void Medical_University(bool isNight = false) {
     glVertex3f(430, 230, building_middle_offset + 0.5f);
     glEnd();
 
-    glColor3f(0,0,0);
+    // University Entrance - SPLIT SLIDING DOORS
+    extern float doorSlideOffset; // Access the global offset value
+
+    // 1. LEFT DOOR PANEL (Slides to the left: subtracts from X positions)
+    if (isNight)
+        glColor3f(0.5f, 0.6f, 0.55f);
+    else
+        glColor3f(0.773f, 0.800f, 0.769f);
+    
+    glPushMatrix();
+    glTranslatef(-doorSlideOffset, 0.0f, 0.0f); // Apply left slide transformation
+    glBegin(GL_POLYGON);
+    glVertex3f(390, 230, building_middle_offset + 0.5f);
+    glVertex3f(390, 265, building_middle_offset + 0.5f);
+    glVertex3f(395, 270, building_middle_offset + 0.5f);
+    glVertex3f(410, 270, building_middle_offset + 0.5f); // Mid-point split line
+    glVertex3f(410, 230, building_middle_offset + 0.5f); // Mid-point split line
+    glEnd();
+    
+    // Left Door Frame Border Line
+    glColor3f(0.1f, 0.1f, 0.1f);
     glBegin(GL_LINES);
     glVertex3f(410, 230, building_middle_offset + 0.6f);
     glVertex3f(410, 270, building_middle_offset + 0.6f);
     glEnd();
+    glPopMatrix();
+
+
+    // 2. RIGHT DOOR PANEL (Slides to the right: adds to X positions)
+    if (isNight)
+        glColor3f(0.5f, 0.6f, 0.55f);
+    else
+        glColor3f(0.773f, 0.800f, 0.769f);
+
+    glPushMatrix();
+    glTranslatef(doorSlideOffset, 0.0f, 0.0f); // Apply right slide transformation
+    glBegin(GL_POLYGON);
+    glVertex3f(410, 230, building_middle_offset + 0.5f); // Mid-point split line
+    glVertex3f(410, 270, building_middle_offset + 0.5f); // Mid-point split line
+    glVertex3f(425, 270, building_middle_offset + 0.5f);
+    glVertex3f(430, 265, building_middle_offset + 0.5f);
+    glVertex3f(430, 230, building_middle_offset + 0.5f);
+    glEnd();
+
+    // Right Door Frame Border Line
+    glColor3f(0.1f, 0.1f, 0.1f);
+    glBegin(GL_LINES);
+    glVertex3f(410, 230, building_middle_offset + 0.6f);
+    glVertex3f(410, 270, building_middle_offset + 0.6f);
+    glEnd();
+    glPopMatrix();
 }
 
 void Restaurant(bool isNight = false) {

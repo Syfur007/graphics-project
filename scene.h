@@ -17,6 +17,22 @@ int trafficTimerAccumulator = 0;
 bool isPaused = false; 
 extern TrafficState currentTrafficState; // Reference to our traffic light enum
 
+// --- PEDESTRIAN & BUS STOP WORKFLOW ---
+float pedX = 410.0f;               // Pedestrian X (Starts at University Door)
+float pedY = 230.0f;               // Pedestrian Y
+float pedZ = 5.0f;                // Pedestrian Z (Slightly in front of sidewalk)
+bool pedActive = false;            // Is a person currently walking/waiting?
+bool pedBoarded = false;           // Track if boarding animation is complete
+int pedSpawnTimer = 0;             // Tracks intervals to spawn a new pedestrian
+
+int busWaitTimer = 0;              // How long the bus has been idling at the stop
+bool busIsStoppedAtStation = false;// State tracking flag for Car_2
+
+// --- DOOR SLIDING CONTROL ---
+float doorSlideOffset = 0.0f;     // How far the doors have slid open (0 = closed, max = 15)
+float maxDoorSlide = 15.0f;       // Maximum sliding distance to clear the doorway
+enum DoorState { CLOSED, OPENING, OPEN, CLOSING };
+DoorState currentDoorState = CLOSED;
 
 // Declared in main.cpp — applies the orbital perspective camera
 extern void applyCamera();
@@ -36,6 +52,7 @@ void Day_Scn()
     Building_Shadows();
     Ground();
     DrawTrafficLight();
+    drawPedestrian();
     smoke();
     Buildings();
     Trees();
@@ -58,6 +75,7 @@ void Night_Scn()
     Building_Shadows(true);
     Ground(true);
     DrawTrafficLight();
+    drawPedestrian();
     Buildings_N();
     Trees_N();
     Car_1(true);
@@ -88,62 +106,116 @@ void keypressed(int key, int x, int y)
 
 void update1(int value)
 {
-    // If the simulation is paused, do nothing and skip position updates
     if (!isPaused)
     {
-        // --- TRAFFIC LIGHT TIMING CYCLE ---
+        // --- EXISTING TRAFFIC LIGHT LOGIC ---
         trafficTimerAccumulator += 16;
-        if (currentTrafficState == RED && trafficTimerAccumulator >= 4000) {
-            currentTrafficState = GREEN;
-            trafficTimerAccumulator = 0;
-        }
-        else if (currentTrafficState == GREEN && trafficTimerAccumulator >= 4000) {
-            currentTrafficState = YELLOW;
-            trafficTimerAccumulator = 0;
-        }
-        else if (currentTrafficState == YELLOW && trafficTimerAccumulator >= 1500) {
-            currentTrafficState = RED;
-            trafficTimerAccumulator = 0;
-        }
+        if (currentTrafficState == RED && trafficTimerAccumulator >= 4000) { currentTrafficState = GREEN; trafficTimerAccumulator = 0; }
+        else if (currentTrafficState == GREEN && trafficTimerAccumulator >= 4000) { currentTrafficState = YELLOW; trafficTimerAccumulator = 0; }
+        else if (currentTrafficState == YELLOW && trafficTimerAccumulator >= 1500) { currentTrafficState = RED; trafficTimerAccumulator = 0; }
 
         // --- CAR 1 MOVEMENT & RED LIGHT DETECTION ---
-        // Assuming Car 1 moves left-to-right (carX increases)
-        // Stop line before x=250 intersection (e.g., between x=180 and x=200)
         if (currentTrafficState == RED && carX >= -130 && carX <= -100) {
-            // Do not update carX; it waits at the red light
+            // Wait at light
         } else {
             carX += carSpeed;
         }
         if (carX > 1200) carX = -400;
 
+        // --- PEDESTRIAN & SLIDING DOOR TIMING STATE MACHINE ---
+        if (!pedActive) {
+            pedSpawnTimer += 16*5;
+            
+            // Trigger door opening sequence slightly before the 5-second mark
+            if (pedSpawnTimer >= 4500 && currentDoorState == CLOSED) {
+                currentDoorState = OPENING;
+            }
 
-        // --- CAR 2 / BUS MOVEMENT & RED LIGHT DETECTION ---
-        // Assuming Car 2 moves right-to-left (busX decreases)
-        // Stop line before x=250 coming from the right (e.g., between x=280 and x=310)
-        if (currentTrafficState == RED && busX >= 280 && busX <= 310) {
-            // Do not update busX; it waits at the red light
+            // Animate doors sliding open
+            if (currentDoorState == OPENING) {
+                doorSlideOffset += 0.5f;
+                if (doorSlideOffset >= maxDoorSlide) {
+                    doorSlideOffset = maxDoorSlide;
+                    currentDoorState = OPEN;
+                    
+                    // Doors are fully open! Spawn the pedestrian now
+                    pedX = 410.0f;           
+                    pedY = 230.0f;
+                    pedZ = 13.0f;
+                    pedActive = true;
+                    pedBoarded = false;
+                    pedSpawnTimer = 0;
+                }
+            }
         } else {
-            busX -= busSpeed;
+            // Animate Pedestrian Path Movement
+            if (pedY > 150.0f) {
+                pedY -= 1.5f;
+            } 
+            if (pedX < 520.0f) {
+                pedX += 2.0f;
+            }
+
+            // Once the pedestrian walks down past the entrance area (y <= 210), close doors
+            if (pedY <= 210.0f && currentDoorState == OPEN) {
+                currentDoorState = CLOSING;
+            }
         }
+
+        // Animate doors sliding shut
+        if (currentDoorState == CLOSING) {
+            doorSlideOffset -= 0.5f;
+            if (doorSlideOffset <= 0.0f) {
+                doorSlideOffset = 0.0f;
+                currentDoorState = CLOSED;
+            }
+        }
+
+        // --- BUS (CAR 2) STOPPAGE & BOARDING LOGIC ---
+        // Bus stop region is roughly x around 500 to 530 coming from the right
+        bool busAtStopPosition = (busX >= -330 && busX <= -300); // Adjusted for bus's width and position
+
+        if (busAtStopPosition && pedActive && pedX >= 510.0f && !busIsStoppedAtStation) {
+            // Bus spots person waiting at stop -> Halt vehicle movement
+            busIsStoppedAtStation = true;
+            busWaitTimer = 0;
+        }
+
+        if (busIsStoppedAtStation) {
+            // Handle boarding sequence animation
+            if (pedActive) {
+                if (pedY > 100.0f) { // Person steps down off curb onto road level
+                    pedY -= 1.0f;
+                } else {
+                    // Fully onboarded -> Delete from visible scene
+                    pedActive = false; 
+                    pedBoarded = true;
+                }
+            } else {
+                // Wait briefly at station after boarding completes before pulling out
+                busWaitTimer += 16;
+                if (busWaitTimer >= 1000) {
+                    busIsStoppedAtStation = false; // Resume travel
+                }
+            }
+        } else {
+            // Standard travel rules (with Red Light enforcement)
+            if (currentTrafficState == RED && busX >= 280 && busX <= 310) {
+                // Wait at Red traffic light intersection
+            } else {
+                busX -= busSpeed;
+            }
+        }
+
         if (busX < -1200) busX = 1250;
 
+        // --- OTHER ENVIRONMENTAL ANIMATIONS ---
+        smokeY += smokeSpeed; if (smokeY > 550) smokeY = -20;
+        cloudX += cloudSpeed; if (cloudX > 1200) cloudX = -1000;
+        planeX -= planeSpeed; if (planeX < -200) planeX = 1300;
 
-        // --- ENVIRONMENT ANIMATIONS ---
-        smokeY += smokeSpeed;
-        if (smokeY > 550) smokeY = -20;
-
-        cloudX += cloudSpeed;
-        if (cloudX > 1200) cloudX = -1000;
-
-        planeX -= planeSpeed;
-        if (planeX < -200) planeX = 1300;
-
-        // Beacon blinker timer
         lightTimerAccumulator += 16;
-        if (lightTimerAccumulator >= 1000) {
-            showRedLight = !showRedLight;
-            lightTimerAccumulator = 0;
-        }
+        if (lightTimerAccumulator >= 1000) { showRedLight = !showRedLight; lightTimerAccumulator = 0; }
     }
 
     glutPostRedisplay();
