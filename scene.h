@@ -4,14 +4,18 @@
 #include "scene_far_buildings.h"
 #include "scene_cars.h"
 
-float carSpeed = 0;
-float busSpeed = 0;
+float carSpeed = 6.0f;
+float busSpeed = 4.0f;
 float smokeSpeed = 4.0f;
 float cloudSpeed = 0.0f;
 float planeSpeed = 3.0f;
 
 int lightTimerAccumulator = 0;
 int trafficTimerAccumulator = 0;
+
+// New state tracking variables
+bool isPaused = false; 
+extern TrafficState currentTrafficState; // Reference to our traffic light enum
 
 
 // Declared in main.cpp — applies the orbital perspective camera
@@ -84,60 +88,62 @@ void keypressed(int key, int x, int y)
 
 void update1(int value)
 {
-    //car
-    carX += carSpeed;
-
-    if (carX > 1200)
-        carX = -200;
-    //bus
-    busX -= busSpeed;
-
-    if (busX < -1200)
-        busX = 1250;
-
-    //smoke
-    smokeY += smokeSpeed;
-
-    if (smokeY > 550)
-        smokeY = -20;
-
-    //cloud
-    cloudX += cloudSpeed;
-
-    if (cloudX > 1200)
-        cloudX = -1000;
-
-    //plane
-    planeX -= planeSpeed;
-
-    if (planeX < -200)
-        planeX = 1300;
-
-
-    lightTimerAccumulator += 16; 
-    if (lightTimerAccumulator >= 1000) 
+    // If the simulation is paused, do nothing and skip position updates
+    if (!isPaused)
     {
-        showRedLight = !showRedLight;  // Toggle the light state
-        lightTimerAccumulator = 0;     // Reset the accumulator
-    }
+        // --- TRAFFIC LIGHT TIMING CYCLE ---
+        trafficTimerAccumulator += 16;
+        if (currentTrafficState == RED && trafficTimerAccumulator >= 4000) {
+            currentTrafficState = GREEN;
+            trafficTimerAccumulator = 0;
+        }
+        else if (currentTrafficState == GREEN && trafficTimerAccumulator >= 4000) {
+            currentTrafficState = YELLOW;
+            trafficTimerAccumulator = 0;
+        }
+        else if (currentTrafficState == YELLOW && trafficTimerAccumulator >= 1500) {
+            currentTrafficState = RED;
+            trafficTimerAccumulator = 0;
+        }
 
-    // --- TRAFFIC LIGHT TIMING CYCLE ---
-    trafficTimerAccumulator += 16; // Add roughly 16ms per frame
-    
-    if (currentTrafficState == RED && trafficTimerAccumulator >= 3000) // 4 seconds for Red
-    {
-        currentTrafficState = GREEN;
-        trafficTimerAccumulator = 0;
-    }
-    else if (currentTrafficState == GREEN && trafficTimerAccumulator >= 3000) // 4 seconds for Green
-    {
-        currentTrafficState = YELLOW;
-        trafficTimerAccumulator = 0;
-    }
-    else if (currentTrafficState == YELLOW && trafficTimerAccumulator >= 1000) // 1.5 seconds for Yellow
-    {
-        currentTrafficState = RED;
-        trafficTimerAccumulator = 0;
+        // --- CAR 1 MOVEMENT & RED LIGHT DETECTION ---
+        // Assuming Car 1 moves left-to-right (carX increases)
+        // Stop line before x=250 intersection (e.g., between x=180 and x=200)
+        if (currentTrafficState == RED && carX >= -130 && carX <= -100) {
+            // Do not update carX; it waits at the red light
+        } else {
+            carX += carSpeed;
+        }
+        if (carX > 1200) carX = -400;
+
+
+        // --- CAR 2 / BUS MOVEMENT & RED LIGHT DETECTION ---
+        // Assuming Car 2 moves right-to-left (busX decreases)
+        // Stop line before x=250 coming from the right (e.g., between x=280 and x=310)
+        if (currentTrafficState == RED && busX >= 280 && busX <= 310) {
+            // Do not update busX; it waits at the red light
+        } else {
+            busX -= busSpeed;
+        }
+        if (busX < -1200) busX = 1250;
+
+
+        // --- ENVIRONMENT ANIMATIONS ---
+        smokeY += smokeSpeed;
+        if (smokeY > 550) smokeY = -20;
+
+        cloudX += cloudSpeed;
+        if (cloudX > 1200) cloudX = -1000;
+
+        planeX -= planeSpeed;
+        if (planeX < -200) planeX = 1300;
+
+        // Beacon blinker timer
+        lightTimerAccumulator += 16;
+        if (lightTimerAccumulator >= 1000) {
+            showRedLight = !showRedLight;
+            lightTimerAccumulator = 0;
+        }
     }
 
     glutPostRedisplay();
@@ -148,6 +154,11 @@ void keyboard1(unsigned char key, int x, int y)
 {
     switch (key)
     {
+    case 'p':
+    case 'P':
+    case ' ': // Spacebar or 'P' toggles pause
+        isPaused = !isPaused;
+        break;
     case 'd':
     case 'D':
         glutDisplayFunc(Day_Scn);
@@ -160,7 +171,6 @@ void keyboard1(unsigned char key, int x, int y)
         break;
     case 'r':
     case 'R':
-        // Reset camera to default orbital position
         rotX    = 00.0f;
         rotY    = 0.0f;
         camDist = 700.0f;

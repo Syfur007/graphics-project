@@ -1,6 +1,6 @@
 #include "scene_utils.h"
 
-float carX = 0;      // Starting position of the car
+float carX = -500;      // Starting position of the car
 float carZ = 14.0f;      // Starting position of the car
 float busX = 0;      // Starting position of the car
 float busZ = 12.0f;      // Starting position of the car
