@@ -8,11 +8,10 @@ float building_middle_window_offset = building_middle_offset + .1f;
 
 float building_shadow_offset = building_offset - 1.0f;
 
+float zBack  = -50.0f;
+float zFront = building_offset; 
 
 void Hospital(bool isNight = false) {
-    // True 3D depth parameters
-    float zFront = building_offset;         // Sits at 9.0f
-    float zBack  = -50.0f;                  // Pushes back into the distance to give real volume
     
     // Choose side-wall illumination based on Day/Night cycle
     if (isNight)
@@ -190,7 +189,6 @@ void Medical_University(bool isNight = false) {
     // True 3D depth parameters
     float zFrontMain   = building_offset;         // Sits at 9.0f
     float zFrontCenter = building_middle_offset;  // Sits at 10.0f (recessed/different forward block)
-    float zBack        = -30.0f;                  // Deep matching background plane for consistency
 
     if (isNight)
         glColor3f(0.25f, 0.25f, 0.25f);     // Dark side shadows at night
@@ -587,9 +585,6 @@ void Pharmacy(bool isNight = false) {
 }
 
 void MegaMall(bool isNight = false) {
-    // True 3D depth parameters
-    float zFront = building_offset;         // Sits at 9.0f
-    float zBack  = -30.0f;
 
     if (isNight)
         glColor3f(0.25f, 0.25f, 0.25f);     // Dark side-wall shadow at night

@@ -4,10 +4,12 @@ float smokeY = 0;      // Starting position of the car
 float cloudX = 0;      // Starting position of the car
 float planeX = 0;      // Starting position of the car
 
+float cloudZ = -30.0f;
 float planeZ = 2.0f;
+float sunMoonZ = -34.0f;
 float traffic_z_offset = 15.0f;
 
-float sky_offset = -30.0f; // Z offset for sky layers to ensure they are drawn behind everything else
+float sky_offset = -35.0f; // Z offset for sky layers to ensure they are drawn behind everything else
 
 enum TrafficState { RED, GREEN, YELLOW };
 TrafficState currentTrafficState = RED;
@@ -126,7 +128,7 @@ void Plane()
 void Clouds()
 {
     glPushMatrix();
-    glTranslatef(cloudX, 0, 0);
+    glTranslatef(cloudX, 0, cloudZ);
     glColor3f(1.0f, 1.0f, 1.0f);
     drawCircle(100.0f, 550.0f, 20.0f);
     drawCircle(120.0f, 540.0f, 20.0f);
@@ -171,13 +173,13 @@ void Clouds()
 void sunA()
 {
     glColor3f(.882, .937, .161); //SUN
-    drawCircle(1000.0f, 530.0f, 40.0f, 0.0f);
+    drawCircle(1000.0f, 530.0f, 40.0f, sunMoonZ);
 }
 
 void Moon()
 {
     glColor3f(.960, .941, .832); //moon
-    drawCircle(1000.0f, 530.0f, 40.0f, 0.0f);
+    drawCircle(1000.0f, 530.0f, 40.0f, sunMoonZ);
 }
 
 float ground_offset = 4.0f;

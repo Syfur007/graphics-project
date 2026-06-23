@@ -1,5 +1,5 @@
-float building_fw_offset = -1.0f; 
-float building_bg_offset = -2.0f;
+float building_fw_offset = -32.0f; 
+float building_bg_offset = -33.0f;
 
 bool showRedLight = true;
 
